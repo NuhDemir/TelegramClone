@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background colors */
+    --bg-primary: rgb(255, 255, 255);
+    --bg-secondary: rgb(196 201 204);
+    --border: rgb(223, 225, 229);
+    --bg-search: rgb(250, 250, 250);
+    --border-search: rgb(223, 225, 229);
+
+    --bg-cta-icon: rgb(51, 144, 236);
+    --bg-message: rgb(238, 255, 222);
+    --bg-message-highlight: rgb(121, 165, 65, 40%);
+    /* Text colors */
+    --text-primary: rgb(0, 0, 0);
+    --text-secondary: rgb(112, 117, 121);
+    --text-secondary-light: hsla(207, 4%, 46%, 0.08);
+
+    --avatar-check: rgb(10, 198, 48);
+    --avatar-check-read: var(--bg-cta-icon);
+    --scrollbar: rgba(0, 0, 0, 0.2);
+    --danger: rgb(223, 63, 64);
+    --box-shadow: rgba(0, 0, 0, 0.149);
+    --bg-modal: rgba(var(--bg-primary), 0.75);
+    --bg-send: rgba(0, 0, 0, 0.2);
+    --message-status: var(--avatar-check);
+    --recorder-icon: rgb(255, 255, 255);
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    @apply text-[1.6rem] text-primary-text caret-cta-icon;
+  }
+
+  svg {
+    @apply w-[2.5rem] h-[2.5rem];
+  }
+
+  svg > path {
+    @apply stroke-secondary-text fill-secondary-text;
+  }
+}
+
+html.dark {
+  /* Background colors */
+  --bg-primary: rgb(24, 24, 24);
+  --border: rgb(15, 15, 15);
+  --bg-cta-icon: rgb(135, 116, 225);
+  --bg-message: rgb(135, 116, 225);
+  --bg-message-highlight: rgba(137, 53, 138, 0.4);
+  --bg-search: rgb(15, 15, 15);
+  --border-search: rgb(47, 47, 47);
+  /* Text colors */
+  --text-primary: rgb(255, 255, 255);
+  --text-secondary: rgb(170, 170, 170);
+  --text-secondary-light: rgba(171, 171, 171, 0.078);
+  --avatar-check: var(--text-primary);
+  --avatar-check-read: rgb(44, 28, 120);
+  --scrollbar: rgba(255, 255, 255, 0.2);
+  --danger: rgb(255, 89, 90);
+  --box-shadow: rgba(0, 0, 0, 0.4);
+  --bg-modal: rgba(var(--bg-primary), 0.75);
+  --bg-send: rgba(0, 0, 0, 0.2);
+  --message-status: rgba(255, 255, 255, 0.6);
+  --recorder-icon: var(--bg-message);
+}
+
+@layer components {
+  .fallback-anim::before {
+    content: "";
+    animation-duration: 2s;
+    animation-name: fallbackAnimation;
+    animation-iteration-count: infinite;
+    animation-delay: 0.5s;
+
+    @apply block h-[6rem] w-[20rem] absolute bg-primary opacity-40;
+  }
+
+  .custom-scrollbar {
+    scrollbar-color: red !important;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-[.6rem];
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-scrollbar rounded-full;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  .modal-child > svg {
+    @apply w-[2.5rem] h-[2.5rem];
+  }
+
+  .modal-child > svg > path {
+    @apply fill-primary-text stroke-primary-text;
+  }
+
+  /* Unselectable texts */
+  .not-selectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .animate-wave::before {
+    content: "";
+    animation-duration: 1.5s;
+    animation-name: wave;
+    animation-iteration-count: infinite;
+
+    @apply w-[10rem] h-[10rem] rounded-full bg-send block absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2;
+  }
+}
+
+@keyframes fallbackAnimation {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: 30%;
+  }
+}
+
+@keyframes wave {
+  0% {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  50% {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  100% {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+/* Chat background */
+/* #fec496,#dd6cb9,#962fbf,#4f5bd5 */
+html.dark .chat-bg {
+  background-color: black;
+  background-image: linear-gradient(
+      to bottom right,
+      rgba(150, 47, 191, 0.1),
+      rgba(221, 108, 185, 0.1)
+    ),
+    url("./assets/chat-bg-dark.jpg");
+  background-size: contain;
+}
+
+.chat-bg {
+  background-color: rgb(136, 184, 132, 0.3);
+  background-image: linear-gradient(
+      to bottom right,
+      rgba(136, 184, 132, 0.302),
+      rgba(107, 165, 135, 0.3)
+    ),
+    url("./assets/chat-bg-light.jpg");
+  background-size: contain;
+}
+
+/* Emoji Picker styles */
+/* Hide emoji search bar search bar */
+#emojiPicker .Flex.epr-header-overlay.FlexRow,
+.Flex.epr-preview.FlexRow {
+  display: none;
+}
+
+#emojiPicker .EmojiPickerReact .epr-body {
+  @apply custom-scrollbar;
+}
+
+html.dark #emojiPicker .EmojiPickerReact {
+  --epr-bg-color: var(--bg-primary);
+  --epr-category-label-bg-color: var(--bg-primary);
+  --epr-picker-border-color: transparent;
+  --epr-emoji-hover-color: var(--text-secondary-light);
+  --epr-hover-bg-color: var(--text-secondary-light);
+  --epr-focus-bg-color: var(--text-secondary-light);
+
+  @apply shadow-md shadow-box-shadow;
+}
+
+#messageInput img {
+  @apply inline-block w-[1.8rem] h-[1.8rem];
+}
